@@ -99,3 +99,13 @@ const enableNotificationsAndRegisterTheServiceWorker = async () => {
     await requestNotificationPermission();
     swRegistration = await registerServiceWorker();
 }
+
+/**
+On load do:
+    <div><button onclick="enableNotificationsAndRegisterTheServiceWorker()">Enable Notifications</button></div>
+    <div><button onclick="subscribeUser()">Subscribe</button></div> 
+*/
+enableNotificationsAndRegisterTheServiceWorker();
+subscribeUser();
+
+
