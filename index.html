@@ -152,7 +152,25 @@ body, html {
 
 <!-- Footer -->
 <footer class="w3-center w3-light-grey w3-padding-48 w3-large">
-  <p></p>
+    
+  <h1>Sample Push Notification UI - August 2024</h1>
+  <p>This script interacts with Web-Push library<BR><BR>
+    To run this app:<BR>
+    Use VSCode with LiveServer to run it locally, or deploy it as a war on your local Tomcat<BR><BR>
+
+    It allows the website to:<BR>
+    1. Check if the browser supports Push Notifications<BR>
+    2. Ask the user to allow Push Notifications<BR>
+    3. Register the ServiceWorker; i.e. sw.js (which listens to the Push Notifications coming from the server)<BR>
+    4. Subscribe the user to Push Notifications and send this subscription to the server (the server uses it to send
+    Push Notifications)<BR>
+  </p>
+  <p>Check your console for more details...</p>
+  <div><button onclick="enableNotificationsAndRegisterTheServiceWorker()">Enable Notifications</button></div>
+  <div><button onclick="subscribeUser()">Subscribe</button></div>
+  <div><button onclick="unregisterServiceWorker()">Unregister the SW</button></div>
+  <script src="scripts/main.js"></script>
+
 </footer>
 
 <script>
