@@ -100,12 +100,38 @@ const enableNotificationsAndRegisterTheServiceWorker = async () => {
     swRegistration = await registerServiceWorker();
 }
 
+const subscribeUserAsSoonAsPossible = async () => {
+    while (true) {
+        console.log("Trying to subscribe the user...");
+        if (swRegistration == null || swRegistration.pushManager == null) {
+            console.log("The service worker is not registered yet... waiting...");
+            await delay(10000);
+            continue;
+        }
+        console.log("The service worker is now registered -> Subscribing the user...");
+        const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
+        const subscription = await swRegistration.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: applicationServerKey
+        })
+        console.log("The user is subscribed:");
+        // Send the subscription to the server:
+        console.log(JSON.stringify(subscription));
+        sendSubscriptionToServer(subscription);
+        // Push a *local* notification:
+        // Note: this is just a local notification > the other notifications will arrive from the server to sw.js
+        swRegistration.showNotification("Thank you for subscribing...");
+        break;
+    }
+}
+
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 /**
-On load do:
-    <div><button onclick="enableNotificationsAndRegisterTheServiceWorker()">Enable Notifications</button></div>
-    <div><button onclick="subscribeUser()">Subscribe</button></div> 
-*/
+ * Enable notifications onload
+ */
 enableNotificationsAndRegisterTheServiceWorker();
-subscribeUser();
+subscribeUserAsSoonAsPossible();
+
 
 
