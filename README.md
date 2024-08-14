@@ -1,1 +1,1 @@
-# coffee-shop
+# coffee-shop sample website
